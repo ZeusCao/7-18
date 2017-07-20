@@ -98,11 +98,11 @@ class ListTableViewController: UITableViewController {
         }
         else
         {
-            // 新建个人记录
-            vc.completionCallBack = {
+            // 新建个人记录（此处VC强引用闭包，闭包中强引用VC，造成循环引用）
+            vc.completionCallBack = { [weak vc] in
                 
                 // 1. 获取明细控制器的person （因为是可选类型）
-                guard let p = vc.person else {
+                guard let p = vc?.person else {
                     return
                 }
                 
